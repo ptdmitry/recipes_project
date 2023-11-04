@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block Title %} No recipe found {% endblock %}
+
+{% block Content %}
+<div>
+    <div class="container mt-5">
+        <div class="card text-center">
+            <div class="card-body">
+                <h1 class="card-title">No Matching Recipe Found</h1>
+                <p class="card-text">We couldn't find a recipe that matches your query.</p>
+                <p class="card-text">Please try another search or explore our recipes.</p>
+                <div class="mt-3">
+                    <a href="javascript:history.back()" class="btn btn-secondary mr-2">Back</a>
+                    <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

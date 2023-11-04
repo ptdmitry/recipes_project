@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+
+{% block Title %} Search results {% endblock %}
+
+{% block Content %}
+<h2>Search Results for "{{ query }}"</h2>
+<ul>
+    {% for recipe in results %}
+        <li><a href="{% url 'recipe' recipe.pk %}">{{ recipe.name }}</a></li>
+    {% empty %}
+        <li>No results found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

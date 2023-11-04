@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block Title %} Editing Recipe: {{ recipe.name }} {% endblock %}
+
+{% block Content %}
+    <div class="d-flex justify-content-center align-items-top gap-5" style="height: 100vh; margin-bottom: 10vh;">
+        <img src="{{ recipe.picture.url }}" alt="{{ recipe.name }}" style="max-width: 60vw; max-height: 60vh;">
+        <div class="card w-50">
+            <div class="card-body">
+                <h1 class="card-title">Edit Recipe</h1>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <p><strong>Error:</strong> Please correct the following errors:</p>
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-primary mb-3">Save Changes</button>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Recipe Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required value="{{ recipe.name }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea id="description" name="description" class="form-control" rows="3" required>{{ recipe.description }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cooking_steps" class="form-label"> Cooking Steps: </label>
+                        <textarea id="cooking_steps" name="cooking_steps" class="form-control" rows="10" required>{{ recipe.cooking_steps }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="time_to_cook" class="form-label">Time to Cook (minutes):</label>
+                        <input type="number" id="time_to_cook" name="time_to_cook" class="form-control" required value="{{ recipe.time_to_cook }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="picture" class="form-label">Picture:</label>
+                        <input type="file" id="picture" name="picture">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="categories" class="form-label">Categories:</label>
+                        <select id="categories" name="categories" class="form-select" multiple>
+                            {% for cat in categories %}
+                                <option value="{{ cat }}"
+                                        {% if cat in recipe.categories.all %}
+                                            selected
+                                        {% endif %}> {{ cat }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

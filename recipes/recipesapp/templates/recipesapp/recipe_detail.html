@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block Title %} {{recipe.name}} {% endblock %}
+
+{% block Content %}
+<div class="d-flex justify-content-center pt-1">
+    <div class="d-flex flex-column align-items-center">
+        <h1>{{recipe.name}}</h1>
+        <p>by {{recipe.author}}</p>
+        {% if recipe.author == user %}
+            <a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-primary mb-3">Edit Recipe</a>
+        {% endif %}
+        <img src="{{recipe.picture.url}}" alt="{{recipe.name}}" style="max-width: 70%">
+    </div>
+</div>
+<div class="mx-auto w-50 d-flex justify-content-center align-items-center pt-1 pb-5" style="max-width:1200pt">
+    <div class="d-flex col pb-5">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"></li>
+            <li class="list-group-item"><p>{{recipe.description}}</p></li>
+            <li class="list-group-item"><p>Cooking time: {{recipe.time_to_cook}}</p></li>
+            <li class="list-group-item"><h4>Instructions:</h4></li>
+            <li class="list-group-item">
+                <article>
+                    {% for step in steps %}
+                        <p>{{ step }}</p>
+                    {% endfor %}
+                </article>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

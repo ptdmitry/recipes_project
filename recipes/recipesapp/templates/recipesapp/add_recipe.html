@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block Title %} Adding a recipe... {% endblock %}
+
+{% block Content %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Add Recipe</h1>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Recipe Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea id="description" name="description" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cooking_steps" class="form-label">Cooking Steps:</label>
+                        <textarea id="cooking_steps" name="cooking_steps" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="time_to_cook" class="form-label">Time to Cook (minutes):</label>
+                        <input type="number" id="time_to_cook" name="time_to_cook" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="picture" class="form-label">Picture:</label>
+                        <input type="file" id="picture" name="picture">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categories" class="form-label">Categories:</label>
+                        <select id="categories" name="categories" class="form-select" multiple>
+                            {% for cat in categories %}
+                                <option value="{{cat}}">{{cat}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
